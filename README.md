@@ -1,39 +1,69 @@
-## Create Aptos Dapp Boilerplate Template
+# Aptos Token Launchpad
 
-The Boilerplate template provides a starter dapp with all necessary dapp infrastructure and a simple wallet info implementation, transfer APT and a simple message board functionality to send and read a message on chain.
+Welcome to the Aptos Token Launchpad! This project provides a framework for launching and minting tokens on the Aptos blockchain.
 
-## Read the Boilerplate template docs
-To get started with the Boilerplate template and learn more about the template functionality and usage, head over to the [Boilerplate template docs](https://aptos.dev/en/build/create-aptos-dapp/templates/boilerplate) 
+## Overview
 
+The Token Launchpad allows users to create a token collection and mint event tickets. It leverages the Aptos token standard and provides essential functionalities for token management.
 
-## The Boilerplate template provides:
+## Features
 
-- **Folder structure** - A pre-made dapp folder structure with a `frontend` and `contract` folders.
-- **Dapp infrastructure** - All required dependencies a dapp needs to start building on the Aptos network.
-- **Wallet Info implementation** - Pre-made `WalletInfo` components to demonstrate how one can use to read a connected Wallet info.
-- **Trasnfer APT implementation** - Pre-made `transfer` components to send APT to an address.
-- **Message board functionality implementation** - Pre-made `message` components to send and read a message on chain
+- **Launch Token**: Create a new token collection with specified metadata.
+- **Mint Event Tickets**: Mint tickets for an event and transfer them to specified addresses.
+- **Burn Tokens**: (To be implemented) Burn existing tokens.
 
+## Prerequisites
 
-## What tools the template uses?
+- [Aptos CLI](https://aptos.dev/cli) installed and configured.
+- A working environment with the Move language.
 
-- React framework
-- Vite development tool
-- shadcn/ui + tailwind for styling
-- Aptos TS SDK
-- Aptos Wallet Adapter
-- Node based Move commands
+## Module Structure
 
-## What Move commands are available?
+The main module is defined as `addrx::launchpad`, which includes the following key components:
 
-The tool utilizes [aptos-cli npm package](https://github.com/aptos-labs/aptos-cli) that lets us run Aptos CLI in a Node environment.
+### Structs
 
-Some commands are built-in the template and can be ran as a npm script, for example:
+- **ModuleData**: Holds the `token_data_id` for the launched token.
+- **TokenIdData**: Contains the `token_id` for minted tokens.
 
-- `npm run move:publish` - a command to publish the Move contract
-- `npm run move:test` - a command to run Move unit tests
-- `npm run move:compile` - a command to compile the Move contract
-- `npm run move:upgrade` - a command to upgrade the Move contract
-- `npm run deploy` - a command to deploy the dapp to Vercel
+### Constants
 
-For all other available CLI commands, can run `npx aptos` and see a list of all available commands.
+- **ENOT_AUTHORIZED**: Error code for unauthorized actions.
+
+### Functions
+
+- **launch_token**: Creates a new token collection and generates a token.
+- **mint_event_ticket**: Mints tokens and transfers them to the receiver.
+- **burn_tokens**: (Placeholder) Functionality for burning tokens.
+
+## Usage
+
+### Launch a Token
+
+To launch a token, use the `launch_token` function with the following parameters:
+
+- `source_account`: The account creating the token.
+- `collection_name`: Name of the token collection.
+- `description`: Description of the collection.
+- `collection_uri`: URI for the collection metadata.
+- `token_name`: Name of the token.
+- `token_uri`: URI for the token metadata.
+- `maximum_supply`: Maximum supply of the token.
+
+### Mint an Event Ticket
+
+To mint an event ticket, call the `mint_event_ticket` function with:
+
+- `module_owner`: The account that owns the module.
+- `receiver`: The account to receive the minted tokens.
+- `token_amount`: The amount of tokens to mint.
+
+### Example
+
+A basic flow for launching a token and minting an event ticket is illustrated in the `test_flow` function. 
+
+```move
+@test_flow
+fun test_flow(admin: signer, receiver: signer) acquires ModuleData, TokenIdData {
+    // Launching token and minting tickets
+}
